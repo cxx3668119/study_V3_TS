@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+
+<body>
+  <div id="app">
+
+  </div>
+  <script src="https://unpkg.com/vue@next"></script>
+
+  <script>
+    Vue.createApp({
+      template: `
+      <div>
+        <h2>{{message}}</h2>
+        <h2>{{count}}</h2>
+        <button>+1</button>
+        <button>-1</button>
+      </div>
+      `,
+      data: function () {
+        return {
+          message: 'hello world',
+          count: 100
+        }
+      }
+    }).mount('#app')
+  </script>
+</body>
+
+</html>
