@@ -34,14 +34,14 @@
       },
       methods: {
         getFullName() {
+          console.log('methods计算');
           return this.firstName + ' ' + this.lastName;
-          console.log('methods');
         },
       },
       computed: {
         fullName() {
+          console.log('computed计算');
           return this.firstName + ' ' + this.lastName;
-          console.log('computed');
         },
       },
     }
