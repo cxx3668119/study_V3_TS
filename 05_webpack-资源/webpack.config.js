@@ -24,16 +24,20 @@ module.exports = {
           "less-loader"
         ]
       },
+      // {
+      //   test: /\.(jpg|png)$/,
+      //   use: {
+      //     loader: "url-loader",
+      //     options: {
+      //       name: 'img/[name]_[hash:6].[ext]',
+      //       limit: 100 * 1024
+      //     }
+      //   }
+      // }
       {
         test: /\.(jpg|png)$/,
-        use: {
-          loader: "url-loader",
-          options: {
-            name: 'img/[name]_[hash:6].[ext]',
-            limit: 100 * 1024
-          }
-        }
-      }
+        type: "asset/resource"
+      },
     ]
   }
 }
