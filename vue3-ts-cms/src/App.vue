@@ -13,4 +13,8 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less"></style>
+<style lang="less" scoope>
+.app {
+  height: 100%;
+}
+</style>
