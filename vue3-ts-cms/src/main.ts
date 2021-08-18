@@ -20,12 +20,10 @@ hyRequest.request({
   headers: {},
   interceptors: {
     requestInterceptor: (config) => {
-      console.log('单独请求的config')
       config.headers['token'] = '123'
       return config
     },
     responseInterceptor: (res) => {
-      console.log('单独响应的response')
       return res
     }
   }
@@ -43,7 +41,5 @@ hyRequest
     showLoading: false
   })
   .then((res) => {
-    console.log(res.data)
     console.log(res.returnCode)
-    console.log(res.success)
   })
