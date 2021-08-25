@@ -2,14 +2,14 @@
   <div class="login-panel">
     <h2 class="title">昕昕管理系统</h2>
     <div class="container">
-      <el-tabs type="border-card" stretch>
-        <el-tab-pane>
+      <el-tabs type="border-card" stretch v-model="currentTab">
+        <el-tab-pane name="account">
           <template #label>
             <span><i class="el-icon-user-solid"></i> 账号登录</span>
           </template>
-          <login-account></login-account>
+          <login-account ref="accountRef"></login-account>
         </el-tab-pane>
-        <el-tab-pane>
+        <el-tab-pane name="phone">
           <template #label>
             <span><i class="el-icon-phone-outline"></i> 手机登录</span>
           </template>
@@ -41,11 +41,21 @@ export default defineComponent({
     LoginPhone
   },
   setup() {
+    // 定义属性
     const isKeepPassword = ref(true)
+    const accountRef = ref<InstanceType<typeof LoginAccount>>()
+    const currentTab = ref<string>('account')
+
+    // 定义方法
     const handleLoginClick = () => {
-      console.log(123)
+      if (currentTab.value === 'account') {
+        console.log(123)
+        accountRef.value?.loginAction(isKeepPassword.value)
+      } else {
+        console.log(currentTab.value)
+      }
     }
-    return { isKeepPassword, handleLoginClick }
+    return { isKeepPassword, handleLoginClick, accountRef, currentTab }
   }
 })
 </script>
