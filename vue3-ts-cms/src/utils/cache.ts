@@ -1,4 +1,4 @@
-class LocalCache {
+class localCache {
   setCache(key: string, value: any) {
     window.localStorage.setItem(key, JSON.stringify(value))
   }
@@ -19,4 +19,4 @@ class LocalCache {
   }
 }
 
-export default new LocalCache()
+export default new localCache()

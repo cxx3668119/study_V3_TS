@@ -1,10 +1,16 @@
 import { Module } from 'vuex'
 import { IRootState } from '../index'
-import { accountLoginRequest } from '@/service/login/login'
+import {
+  accountLoginRequest,
+  requsestUserInfoById,
+  requsestUserUserMenus
+} from '@/service/login/login'
+import localCache from '@/utils/cache'
 
 interface IloginModule {
   token: string
   userInfo: any
+  userMenus: any
 }
 
 const loginModule: Module<IloginModule, IRootState> = {
@@ -12,13 +18,20 @@ const loginModule: Module<IloginModule, IRootState> = {
   state() {
     return {
       token: '',
-      userInfo: {}
+      userInfo: {},
+      userMenus: []
     }
   },
   getters: {},
   mutations: {
     changeToken(state, token: string) {
       state.token = token
+    },
+    changeUserInfo(state, userInfo: any) {
+      state.userInfo = userInfo
+    },
+    changeUserLists(state, userLists: any) {
+      state.userMenus = userLists
     }
   },
   actions: {
@@ -29,6 +42,20 @@ const loginModule: Module<IloginModule, IRootState> = {
       const loginResult = await accountLoginRequest(payload)
       const { id, token } = loginResult.data
       commit('changeToken', token)
+      localCache.setCache('token', token)
+
+      // 请求用户信息
+      const userInfoResult = await requsestUserInfoById(id)
+      const userInfo = userInfoResult.data
+      commit('changeUserInfo', userInfo)
+      localCache.setCache('userInfo', userInfo)
+
+      // 获取用户菜单列表
+      const userMenuLists = await requsestUserUserMenus(userInfo.role.id)
+      const userLists = userMenuLists.data
+      commit('changeUserLists', userLists)
+      localCache.setCache('userLists', userLists)
+      console.log(userLists)
     }
   }
 }
