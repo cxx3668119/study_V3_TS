@@ -6,6 +6,7 @@ import {
   requsestUserUserMenus
 } from '@/service/login/login'
 import localCache from '@/utils/cache'
+import router from '@/router'
 
 interface IloginModule {
   token: string
@@ -56,6 +57,22 @@ const loginModule: Module<IloginModule, IRootState> = {
       commit('changeUserLists', userLists)
       localCache.setCache('userLists', userLists)
       console.log(userLists)
+
+      router.push('/main')
+    },
+    loadLocalLogin({ commit }) {
+      const token = localCache.getCache('token')
+      if (token) {
+        commit('changeToken', token)
+      }
+      const userInfo = localCache.getCache('userInfo')
+      if (token) {
+        commit('changeUserInfo', userInfo)
+      }
+      const userLists = localCache.getCache('userLists')
+      if (token) {
+        commit('changeUserLists', userLists)
+      }
     }
   }
 }
