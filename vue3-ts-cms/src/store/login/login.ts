@@ -1,5 +1,5 @@
 import { Module } from 'vuex'
-import { IRootState } from '../index'
+import { IRootState } from '../type'
 import {
   accountLoginRequest,
   requsestUserInfoById,
@@ -8,7 +8,7 @@ import {
 import localCache from '@/utils/cache'
 import router from '@/router'
 
-interface IloginModule {
+export interface IloginModule {
   token: string
   userInfo: any
   userMenus: any

@@ -4,15 +4,46 @@
       <img class="img" src="~@/assets/img/logo.svg" alt="logo" />
       <span class="title">Chen-Xin-Xin</span>
     </div>
+    <el-menu default-active="2" class="el-menu-vertical-demo">
+      <template v-for="item in userMenus" :key="item.id">
+        <!-- 二级菜单 -->
+        <template v-if="item.type === 1">
+          <!-- 二级菜单可以展开的标题 -->
+          <el-submenu>
+            <template #title>
+              <i v-if="item.icon" :class="item.icon"></i>
+              <span>{{ item.name }}</span>
+            </template>
+          </el-submenu>
+          <!-- 遍历里面的item -->
+          <template v-for="subitem in item.children" :key="subitem.id">
+            <el-menu-item>
+              <i v-if="subitem.icon" :class="subitem.icon"></i>
+              <span>{{ subitem.name }}</span>
+            </el-menu-item>
+          </template>
+        </template>
+        <!-- 一级菜单 -->
+        <template v-else-if="item.type === 2">
+          <el-menu-item>
+            <i v-if="item.icon" :class="item.icon"></i>
+            <span>{{ item.name }}</span>
+          </el-menu-item>
+        </template>
+      </template>
+    </el-menu>
   </div>
 </template>
 
 <script lang="ts">
-import { defineComponent } from 'vue'
+import { defineComponent, computed } from 'vue'
+import { useStore } from '@/store'
 
 export default defineComponent({
   setup() {
-    return {}
+    const store = useStore()
+    const userMenus = computed(() => store.state.login.userMenus)
+    return { userMenus }
   }
 })
 </script>
