@@ -1,9 +1,10 @@
-class localCache {
+class LocalCache {
   setCache(key: string, value: any) {
     window.localStorage.setItem(key, JSON.stringify(value))
   }
 
   getCache(key: string) {
+    // obj => string => obj
     const value = window.localStorage.getItem(key)
     if (value) {
       return JSON.parse(value)
@@ -19,4 +20,4 @@ class localCache {
   }
 }
 
-export default new localCache()
+export default new LocalCache()

@@ -1,23 +1,21 @@
 import { createApp } from 'vue'
+import { globalRegister } from './global'
+import 'normalize.css'
+import './assets/css/index.less'
+
 import App from './App.vue'
+
 import router from './router'
 import store from './store'
-import ElementPlus from 'element-plus'
 import { setupStore } from './store'
 
-// import './service/axios.demo.ts'
-import 'element-plus/lib/theme-chalk/index.css'
-import './assets/css/index.less'
 const app = createApp(App)
 
-app.use(router)
+// 注册element-plus/其他
+app.use(globalRegister)
 app.use(store)
-app.use(ElementPlus)
 setupStore()
-app.mount('#app')
+// path: /user => user
+app.use(router)
 
-interface DataType {
-  data: any
-  returnCode: string
-  success: boolean
-}
+app.mount('#app')

@@ -6,10 +6,12 @@
       </el-aside>
       <el-container class="page">
         <el-header class="page-header">
-          <nav-header @foldChange="handleFoldChange"></nav-header>
+          <nav-header @foldChange="handleFoldChange" />
         </el-header>
         <el-main class="page-content">
-          <router-view></router-view>
+          <div class="page-info">
+            <router-view></router-view>
+          </div>
         </el-main>
       </el-container>
     </el-container>
@@ -18,17 +20,24 @@
 
 <script lang="ts">
 import { defineComponent, ref } from 'vue'
-import NavMenu from '@/components/nav-menu/src/nav-menu.vue'
-import NavHeader from '@/components/nav-header/index'
+import NavMenu from '@/components/nav-menu'
+import NavHeader from '@/components/nav-header'
 
 export default defineComponent({
-  components: { NavMenu, NavHeader },
+  components: {
+    NavMenu,
+    NavHeader
+  },
   setup() {
     const isCollapse = ref(false)
-    const handleFoldChange = (isFlod: boolean) => {
-      isCollapse.value = isFlod
+    const handleFoldChange = (isFold: boolean) => {
+      isCollapse.value = isFold
     }
-    return { isCollapse, handleFoldChange }
+
+    return {
+      isCollapse,
+      handleFoldChange
+    }
   }
 })
 </script>
@@ -49,6 +58,11 @@ export default defineComponent({
 
 .page-content {
   height: calc(100% - 48px);
+
+  .page-info {
+    background-color: #fff;
+    border-radius: 5px;
+  }
 }
 
 .el-header,

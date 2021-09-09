@@ -9,11 +9,15 @@ import { defineComponent } from 'vue'
 
 export default defineComponent({
   name: 'App',
-  components: {}
+  props: {
+    name: {
+      type: String
+    }
+  }
 })
 </script>
 
-<style lang="less" scoope>
+<style lang="less">
 .app {
   height: 100%;
 }

@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div class="login-account">
     <el-form label-width="60px" :rules="rules" :model="account" ref="formRef">
-      <el-form-item label="账号" prop="name"
-        ><el-input v-model="account.name"
-      /></el-form-item>
+      <el-form-item label="账号" prop="name">
+        <el-input v-model="account.name" />
+      </el-form-item>
       <el-form-item label="密码" prop="password">
         <el-input v-model="account.password" show-password />
       </el-form-item>
@@ -13,25 +13,28 @@
 
 <script lang="ts">
 import { defineComponent, reactive, ref } from 'vue'
-import rules from '../config/accout-config'
+import { useStore } from 'vuex'
 import { ElForm } from 'element-plus'
 import localCache from '@/utils/cache'
-import { useStore } from 'vuex'
+
+import { rules } from '../config/account-config'
 
 export default defineComponent({
   setup() {
     const store = useStore()
+
     const account = reactive({
       name: localCache.getCache('name') ?? '',
       password: localCache.getCache('password') ?? ''
     })
+
     const formRef = ref<InstanceType<typeof ElForm>>()
 
-    const loginAction = (isKeep: boolean) => {
+    const loginAction = (isKeepPassword: boolean) => {
       formRef.value?.validate((valid) => {
         if (valid) {
-          // console.log('执行登录逻辑')
-          if (isKeep) {
+          // 1.判断是否需要记住密码
+          if (isKeepPassword) {
             // 本地缓存
             localCache.setCache('name', account.name)
             localCache.setCache('password', account.password)
@@ -40,6 +43,7 @@ export default defineComponent({
             localCache.deleteCache('password')
           }
 
+          // 2.开始进行登录验证
           store.dispatch('login/accountLoginAction', { ...account })
         }
       })
@@ -55,4 +59,4 @@ export default defineComponent({
 })
 </script>
 
-<style lang="less" scoped></style>
+<style scoped></style>

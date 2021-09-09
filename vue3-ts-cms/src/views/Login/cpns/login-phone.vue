@@ -1,40 +1,40 @@
 <template>
-  <div>
-    <el-form label-width="60px" :rules="rules" :model="phoneLogin">
-      <el-form-item label="手机号" prop="phone"
-        ><el-input v-model="phoneLogin.phone"
-      /></el-form-item>
-      <el-form-item label="验证码" prop="verification">
-        <div class="get-code">
-          <el-input v-model="phoneLogin.verification" />
-          <el-button type="primary" class="get-btn">获取验证码</el-button>
-        </div>
-      </el-form-item>
-    </el-form>
-  </div>
+  <el-form label-width="60px">
+    <el-form-item label="手机号" prop="num">
+      <el-input v-model="phone.num" />
+    </el-form-item>
+    <el-form-item label="验证码" prop="code">
+      <div class="get-code">
+        <el-input v-model="phone.code" />
+        <el-button type="primary" class="get-btn">获取验证码</el-button>
+      </div>
+    </el-form-item>
+  </el-form>
 </template>
 
 <script lang="ts">
 import { defineComponent, reactive } from 'vue'
-import rules from '../config/accout-config'
 
 export default defineComponent({
   setup() {
-    const phoneLogin = reactive({
-      phone: '',
-      verification: ''
+    const phone = reactive({
+      num: '',
+      code: ''
     })
-    return { phoneLogin, rules }
+
+    return {
+      phone
+    }
   }
 })
 </script>
 
-<style lang="less" scoped>
+<style scoped>
 .get-code {
   display: flex;
+}
 
-  .get-btn {
-    margin-left: 10px;
-  }
+.get-btn {
+  margin-left: 8px;
 }
 </style>
